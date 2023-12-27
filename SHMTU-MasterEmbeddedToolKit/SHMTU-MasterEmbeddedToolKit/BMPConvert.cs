@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using Com.FirstSolver.Splash;
 using EmbeddedCourseLib;
 using Microsoft.Win32;
 using static EmbeddedChineseCharacter.EmbeddedChineseCharacter;
@@ -297,6 +298,34 @@ namespace SHMTU_MasterEmbeddedToolKit
             if (!string.IsNullOrWhiteSpace(constantName))
             {
                 TextBoxImgConstantName.Text = constantName;
+            }
+        }
+
+        private void BtnReadClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            // 读取剪贴板内容
+            var dataObject = Clipboard.GetDataObject();
+
+            // 判断剪贴板中是否包含图像数据
+            if (dataObject?.GetDataPresent(DataFormats.Bitmap) == true)
+            {
+                BitmapSource clipboardImage = Clipboard.GetImage();
+
+                // 判断图像数据是否为有效图像
+                if (clipboardImage == null) return;
+
+                _imageCurrent = clipboardImage.ToBitmap();
+
+                UpdateImageSize();
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Clipboard does not contain image data.",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
         }
     }

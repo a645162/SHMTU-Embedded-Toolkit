@@ -222,12 +222,14 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Vertical">
-                        <Label
-                            Margin="10,5,0,5"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Content="Picture File Path(*.jpg/*.jpeg/*.bmp/*.png):" />
-
+                        <WrapPanel>
+                            <Label
+                                Margin="10,5,0,5"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="Picture File Path(*.jpg/*.jpeg/*.bmp/*.png):" />
+                            <Button Margin="10,0,10,0" Content="Read from Clipboard" Click="BtnReadClipboard_Click" />
+                        </WrapPanel>
                         <WrapPanel>
                             <TextBox
                                 x:Name="TextBoxBmpPath"

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("WindowsSystemTheme")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Windows System Theme")]
+[assembly: AssemblyDescription("Windows System Theme")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WindowsSystemTheme")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCompany("Haomin Kong")]
+[assembly: AssemblyProduct("Windows System Theme")]
+[assembly: AssemblyCopyright("Copyright Haomin Kong © 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

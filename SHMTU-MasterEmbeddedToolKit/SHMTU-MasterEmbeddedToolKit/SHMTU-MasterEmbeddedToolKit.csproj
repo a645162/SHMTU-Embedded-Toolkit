@@ -87,6 +87,7 @@
     </ApplicationDefinition>
     <Compile Include="BMPConvert.cs" />
     <Compile Include="FontConver.cs" />
+    <Compile Include="ImageUtils.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
