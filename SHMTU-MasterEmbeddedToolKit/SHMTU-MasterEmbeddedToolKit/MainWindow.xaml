@@ -13,6 +13,9 @@
     MinHeight="600"
     ShowTitle="True"
     WindowStartupLocation="CenterScreen"
+    AllowDrop="True"
+    Drop="MainWindow_OnDrop"
+    DragEnter="MainWindow_OnDragEnter"
     mc:Ignorable="d">
     <hc:Window.NonClientAreaContent>
         <Grid>
@@ -227,7 +230,7 @@
                                 Margin="10,5,0,5"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="Picture File Path(*.jpg/*.jpeg/*.bmp/*.png):" />
+                                Content="Picture File Path(*.jpg/*.jpeg/*.bmp/*.png,Support Drag):" />
                             <Button Margin="10,0,10,0" Content="Read from Clipboard" Click="BtnReadClipboard_Click" />
                         </WrapPanel>
                         <WrapPanel>

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
 using EmbeddedCourseLib;
 using Microsoft.Win32;
@@ -128,6 +129,16 @@ namespace SHMTU_MasterEmbeddedToolKit
                     FontUtil.GetFontObjectFromName(fontName),
                     ttfConstantName
                 );
+
+            if (
+                !(
+                    savePath.EndsWith(".h", StringComparison.OrdinalIgnoreCase) ||
+                    savePath.EndsWith(".hpp", StringComparison.OrdinalIgnoreCase)
+                )
+            )
+            {
+                savePath += ".h";
+            }
 
             // Save to file
             File.WriteAllText(savePath, cArray);

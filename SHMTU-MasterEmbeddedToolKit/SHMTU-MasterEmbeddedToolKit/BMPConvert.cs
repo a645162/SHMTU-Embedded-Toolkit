@@ -70,6 +70,10 @@ namespace SHMTU_MasterEmbeddedToolKit
 
         private Bitmap _imageCurrent;
 
+        // 1:File 2:Clipboard
+        private int _imageSource = 0;
+        private string _imgSourceFilePath = "";
+
         private void BtnOpenBmp_Click(object sender, RoutedEventArgs e)
         {
             var filePath = TextBoxBmpPath.Text.Trim();
@@ -94,6 +98,8 @@ namespace SHMTU_MasterEmbeddedToolKit
             }
 
             _imageCurrent = new Bitmap(filePath);
+            _imageSource = 1;
+            _imgSourceFilePath = filePath;
 
             UpdateImageSize();
 
@@ -150,8 +156,11 @@ namespace SHMTU_MasterEmbeddedToolKit
             var bmpConstantName = TextBoxImgConstantName.Text.Trim().ToUpper();
             if (string.IsNullOrWhiteSpace(bmpConstantName))
             {
-                var fileName = Path.GetFileName(savePath).ToUpper();
-                bmpConstantName = GetUniqueIdentification(fileName);
+                // var fileName = Path.GetFileName(savePath).ToUpper();
+                if (_imageSource == 1)
+                {
+                    bmpConstantName = GetUniqueIdentification(_imgSourceFilePath);
+                }
 
                 if (string.IsNullOrWhiteSpace(bmpConstantName))
                 {
@@ -165,8 +174,19 @@ namespace SHMTU_MasterEmbeddedToolKit
                     bmp,
                     "Int08U",
                     bmpConstantName,
-                    $"PIC_{bmpConstantName}_RGB_ARRAY"
+                    $"PIC_{bmpConstantName}_RGB_ARRAY",
+                    _imageSource == 1 ? _imgSourceFilePath : ""
                 );
+
+            if (
+                !(
+                    savePath.EndsWith(".h", StringComparison.OrdinalIgnoreCase) ||
+                    savePath.EndsWith(".hpp", StringComparison.OrdinalIgnoreCase)
+                )
+            )
+            {
+                savePath += ".h";
+            }
 
             File.WriteAllText(savePath, code);
 
@@ -278,6 +298,9 @@ namespace SHMTU_MasterEmbeddedToolKit
             );
 
             ImageThumbnail.Source = wpfBitmap;
+
+            LabelBmpStatus.Content = "Image Opened";
+            LabelBmpStatus.Style = (Style)FindResource("LabelSuccess");
         }
 
         private void ButtonGeneratePicConstantName_Click(object sender, RoutedEventArgs e)
@@ -315,6 +338,7 @@ namespace SHMTU_MasterEmbeddedToolKit
                 if (clipboardImage == null) return;
 
                 _imageCurrent = clipboardImage.ToBitmap();
+                _imageSource = 2;
 
                 UpdateImageSize();
             }
@@ -327,6 +351,53 @@ namespace SHMTU_MasterEmbeddedToolKit
                     MessageBoxImage.Error
                 );
             }
+        }
+
+        private void MainWindow_OnDrop(object sender, DragEventArgs e)
+        {
+            // 获取拖拽的文件路径数组
+            var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            // 处理拖拽的文件
+            if (files?.Length > 0)
+            {
+                var filePath = files[0];
+                var fileName = Path.GetFileName(filePath);
+                if (FileNameUtil.JudgeIsImage(fileName))
+                {
+                    TextBoxBmpPath.Text = filePath;
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "File is not an image.",
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Drag Error!",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+        }
+
+        private void MainWindow_OnDragEnter(object sender, DragEventArgs e)
+        {
+            // 判断拖拽的数据是否包含文件
+            e.Effects =
+                e.Data.GetDataPresent(
+                    DataFormats.FileDrop
+                )
+                    ? DragDropEffects.Copy
+                    : DragDropEffects.None;
         }
     }
 }

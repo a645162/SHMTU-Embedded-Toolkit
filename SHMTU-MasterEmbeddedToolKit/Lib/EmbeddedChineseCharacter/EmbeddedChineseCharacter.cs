@@ -88,7 +88,7 @@ namespace EmbeddedChineseCharacter
                         currentString = c.ToString();
                         currentType = 3;
                     }
-                    else if (c == ' ' || c == '.')
+                    else if (c == ' ' || c == '.' || c == '_' || c == '-')
                     {
                         currentString = "_";
                         currentType = 4;
