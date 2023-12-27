@@ -359,7 +359,7 @@ namespace SHMTU_MasterEmbeddedToolKit
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
             // 处理拖拽的文件
-            if (files?.Length > 0)
+            if (files?.Length == 1)
             {
                 var filePath = files[0];
                 var fileName = Path.GetFileName(filePath);
@@ -375,17 +375,28 @@ namespace SHMTU_MasterEmbeddedToolKit
                         MessageBoxButton.OK,
                         MessageBoxImage.Error
                     );
-                    return;
                 }
             }
             else
             {
-                MessageBox.Show(
-                    "Drag Error!",
-                    "Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
+                if (files?.Length > 1)
+                {
+                    MessageBox.Show(
+                        "Only one file can be dragged.",
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Drag Error!",
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
+                }
             }
         }
 
