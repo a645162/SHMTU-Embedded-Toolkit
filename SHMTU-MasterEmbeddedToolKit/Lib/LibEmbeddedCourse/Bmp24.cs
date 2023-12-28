@@ -44,7 +44,6 @@ namespace EmbeddedCourseLib
 
         public static string ConvertBitmap2CArray(
             Bitmap bmp,
-            string typeName,
             string varName,
             string headerUniqueIdentification,
             string imageSourceFileName = ""
@@ -65,8 +64,20 @@ namespace EmbeddedCourseLib
             sb.Append($"#ifndef {headerUniqueIdentification}\n");
             sb.Append($"#define {headerUniqueIdentification}\n\n");
 
+            const int channel = 3;
+
+            sb.Append($"#define {varName}_WIDTH {bmp.Width}\n");
+            sb.Append($"#define {varName}_HEIGHT {bmp.Height}\n");
+            sb.Append($"#define {varName}_CHANNEL {channel}\n");
+
+            sb.Append("\n");
+
+            sb.Append("// Int08U <=> unsigned char (8bit)\n");
+
+            sb.Append("\n");
+
             sb.Append(
-                $"const {typeName} {varName}[{bmp.Width} * {bmp.Height} * 3] = "
+                $"const unsigned char {varName}[{bmp.Width} * {bmp.Height} * {channel}] = "
             );
             sb.Append("{\n\t\t");
             var count = 0;
@@ -86,7 +97,7 @@ namespace EmbeddedCourseLib
                 }
             }
 
-            string str = sb.ToString();
+            var str = sb.ToString();
             while (
                 str.EndsWith(" ")
                 || str.EndsWith(",")

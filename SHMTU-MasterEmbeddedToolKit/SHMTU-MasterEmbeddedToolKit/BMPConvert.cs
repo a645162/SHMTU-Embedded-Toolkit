@@ -82,6 +82,10 @@ namespace SHMTU_MasterEmbeddedToolKit
             {
                 LabelBmpStatus.Content = "File Not Exist";
                 LabelBmpStatus.Style = (Style)FindResource("LabelDanger");
+                MessageBox.Show(
+                    $"File is not exist\n{filePath}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error
+                );
                 return;
             }
 
@@ -89,6 +93,12 @@ namespace SHMTU_MasterEmbeddedToolKit
             {
                 LabelBmpStatus.Content = "File Is Not Image";
                 LabelBmpStatus.Style = (Style)FindResource("LabelDanger");
+                MessageBox.Show(
+                    $"File is not an image\n{filePath}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
@@ -173,7 +183,6 @@ namespace SHMTU_MasterEmbeddedToolKit
                 Bmp24.ConvertBitmap2CArray
                 (
                     bmp,
-                    "Int08U",
                     bmpConstantName,
                     $"PIC_{bmpConstantName}_RGB_ARRAY",
                     _imageSource == 1 ? _imgSourceFilePath : ""
@@ -191,16 +200,28 @@ namespace SHMTU_MasterEmbeddedToolKit
 
             File.WriteAllText(savePath, code);
 
-            if (
-                MessageBox.Show(
-                    "Convert BMP to C Array successfully!",
-                    "Message",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question
-                ) == MessageBoxResult.Yes
-            )
+            var messageBoxResult = MessageBox.Show(
+                "Convert Image to C Array successfully!\n" +
+                savePath + "\n" +
+                "Click \"Yes\" to Open File\n" +
+                "Click \"No\" to navigate to the file in Windows Explorer\n" +
+                "Click \"Cancel\" to do nothing",
+                "Message",
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Question
+            );
+            switch (messageBoxResult)
             {
-                OpenExplorerAndSelectFile(savePath);
+                case MessageBoxResult.Yes:
+                    OpenFileWithDefaultProgram(savePath);
+                    break;
+                case MessageBoxResult.No:
+                    OpenExplorerAndSelectFile(savePath);
+                    break;
+                case MessageBoxResult.None:
+                case MessageBoxResult.Cancel:
+                default:
+                    break;
             }
         }
 

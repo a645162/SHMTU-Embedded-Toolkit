@@ -124,14 +124,28 @@ namespace EmbeddedCourseLib
             var validStr = new string(charArray);
             cArray += $"/* Valid: {validStr} */\t/* Length:{validStr.Length} */\n\n";
 
-            foreach (var currentChar in str)
+            const string sizeOfChar = "16 * 2";
+
+            var spaceCount = 0;
+            for (var i = 0; i < str.Length; ++i)
             {
+                var currentChar = str[i];
+                if (currentChar == ' ')
+                {
+                    spaceCount++;
+                    continue;
+                }
+
                 // Find currentChar in validStr
                 var index = validStr.IndexOf(currentChar);
 
                 if (index != -1)
                 {
-                    cArray += $"/* {currentChar} : ({varName} + 32 * {index}) */\n";
+                    cArray +=
+                        $"/* {currentChar} :\n" +
+                        $"\t\t({varName} + {sizeOfChar} * {index})\n" +
+                        $"\t\t(start_x + TEXT_WIDTH_HEIGHT * ({i} + {spaceCount}))\n" +
+                        $"*/\n";
                 }
             }
 
@@ -139,7 +153,21 @@ namespace EmbeddedCourseLib
             cArray += $"#ifndef {headerUniqueIdentification}\n";
             cArray += $"#define {headerUniqueIdentification}\n\n";
 
-            cArray += $"const Int08U {varName}[{charArray.Length} * 16 * 2] = \n";
+            cArray += "#ifndef SIZE_OF_PER_TEXT\n";
+            cArray += $"#define SIZE_OF_PER_TEXT {sizeOfChar}\n";
+            cArray += "#endif //SIZE_OF_PER_TEXT\n\n";
+
+            cArray += "#ifndef TEXT_WIDTH_HEIGHT\n";
+            cArray += "#define TEXT_WIDTH_HEIGHT 16\n";
+            cArray += "#endif //TEXT_WIDTH_HEIGHT\n";
+
+            cArray += "\n";
+
+            cArray += "// Int08U <=> unsigned char (8bit)\n";
+
+            cArray += "\n";
+
+            cArray += $"const unsigned char {varName}[{charArray.Length} * {sizeOfChar}] = \n";
             cArray += "{\n";
             for (var i = 0; i < charArray.Length; i++)
             {

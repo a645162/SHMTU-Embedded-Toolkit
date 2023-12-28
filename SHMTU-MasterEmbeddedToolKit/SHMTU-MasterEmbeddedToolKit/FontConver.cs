@@ -146,16 +146,27 @@ namespace SHMTU_MasterEmbeddedToolKit
             // Save to file
             File.WriteAllText(savePath, cArray);
 
-            if (
-                MessageBox.Show(
-                    "Convert TTF to C Array successfully!\n" +
-                    "Do you need to navigate to the file?",
-                    "Message", MessageBoxButton.YesNo,
-                    MessageBoxImage.Question
-                ) == MessageBoxResult.Yes
-            )
+            var messageBoxResult = MessageBox.Show(
+                "Convert Text Raw Data to C Array successfully!\n" +
+                savePath + "\n" +
+                "Click \"Yes\" to Open File\n" +
+                "Click \"No\" to navigate to the file in Windows Explorer\n" +
+                "Click \"Cancel\" to do nothing",
+                "Message", MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Question
+            );
+            switch (messageBoxResult)
             {
-                OpenExplorerAndSelectFile(savePath);
+                case MessageBoxResult.Yes:
+                    OpenFileWithDefaultProgram(savePath);
+                    break;
+                case MessageBoxResult.No:
+                    OpenExplorerAndSelectFile(savePath);
+                    break;
+                case MessageBoxResult.None:
+                case MessageBoxResult.Cancel:
+                default:
+                    break;
             }
         }
 
