@@ -1,4 +1,7 @@
-﻿//http://www.firstsolver.com/wordpress/?p=3462
+﻿// Ignore Spelling: Utils
+
+// http://www.firstsolver.com/wordpress/?p=3462
+
 /* ----------------------------------------------------------
  * 文件名称：ImageUtils.cs
  *

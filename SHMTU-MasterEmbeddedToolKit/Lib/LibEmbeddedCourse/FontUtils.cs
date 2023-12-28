@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Ignore Spelling: Utils
+
+using System;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;

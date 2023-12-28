@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿// Ignore Spelling: Utils
+
+using System.IO;
 
 namespace EmbeddedCourseLib
 {

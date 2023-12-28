@@ -1,10 +1,10 @@
-﻿using HandyControl.Themes;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
+using HandyControl.Themes;
 namespace SHMTU_MasterEmbeddedToolKit
 {
     public partial class App : Application
-{
+    {
         internal void UpdateTheme(ApplicationTheme theme)
         {
             if (ThemeManager.Current.ApplicationTheme != theme)

@@ -89,20 +89,20 @@ namespace SHMTU_MasterEmbeddedToolKit
 
         private void MenuItemGithubRepo_Click(object sender, RoutedEventArgs e)
         {
-            OpenUrl(@"https://github.com/a645162/SHMTU-Embedded-Toolkit");
+            OpenUrl("https://github.com/a645162/SHMTU-Embedded-Toolkit");
         }
 
         private void MenuItemGithubHome_Click(object sender, RoutedEventArgs e)
         {
-            OpenUrl(@"https://github.com/a645162");
+            OpenUrl("https://github.com/a645162");
         }
 
         private void ButtonGithubRepo_Click(object sender, RoutedEventArgs e)
         {
-            OpenUrl(@"https://github.com/a645162/SHMTU-Embedded-Toolkit");
+            OpenUrl("https://github.com/a645162/SHMTU-Embedded-Toolkit");
         }
 
-        private void OpenExplorerAndSelectFile(string filePath)
+        private static void OpenExplorerAndSelectFile(string filePath)
         {
             if (!File.Exists(filePath))
             {
