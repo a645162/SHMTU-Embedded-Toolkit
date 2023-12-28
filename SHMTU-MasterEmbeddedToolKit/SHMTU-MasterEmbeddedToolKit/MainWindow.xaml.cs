@@ -127,5 +127,45 @@ namespace SHMTU_MasterEmbeddedToolKit
                 );
             }
         }
+
+        private static void OpenFileWithDefaultProgram(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show(
+                    $"File is not exist：{filePath}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error
+                );
+                return;
+            }
+
+            try
+            {
+                // 启动默认关联程序打开文件
+                Process.Start(filePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Cannot open File：{ex.Message}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error
+                );
+            }
+        }
+
+        private static string GetFormatTimeString()
+        {
+            var currentTime = DateTime.Now;
+
+            var formattedTime = currentTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+            return formattedTime;
+        }
+
+        private static string GetGenerateTimeString()
+        {
+            return $"/* The file was created in {GetFormatTimeString()} */";
+        }
+
     }
 }

@@ -295,7 +295,7 @@
                                 VerticalAlignment="Center"
                                 PreviewTextInput="TextBoxImgWidth_PreviewTextInput"
                                 Text="100"
-                                TextWrapping="NoWrap" />
+                                TextWrapping="NoWrap" TextAlignment="Center" TextChanged="TextBoxImgWidth_TextChanged" />
                             <Label
                                 Margin="10,5,0,5"
                                 HorizontalAlignment="Left"
@@ -309,7 +309,7 @@
                                 VerticalAlignment="Center"
                                 PreviewTextInput="TextBoxImgHeight_PreviewTextInput"
                                 Text="100"
-                                TextWrapping="NoWrap" />
+                                TextWrapping="NoWrap" TextAlignment="Center" TextChanged="TextBoxImgHeight_TextChanged" />
                             <Button
                                 x:Name="BtnResize"
                                 HorizontalAlignment="Right"
