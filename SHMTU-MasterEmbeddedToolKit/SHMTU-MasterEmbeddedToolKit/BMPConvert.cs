@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Com.FirstSolver.Splash;
@@ -442,6 +443,86 @@ namespace SHMTU_MasterEmbeddedToolKit
                 )
                     ? DragDropEffects.Copy
                     : DragDropEffects.None;
+        }
+
+        private static int CalcNewHeightByNewWidth(int width, int height, int newWidth)
+        {
+            return (int)(height * (newWidth / (double)width));
+        }
+
+        private static int CalcNewWidthByNewHeight(int width, int height, int newHeight)
+        {
+            return (int)(width * (newHeight / (double)height));
+        }
+
+        private void TextBoxImgWidth_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_imageCurrent == null)
+            {
+                return;
+            }
+
+            var widthString = TextBoxImgWidth.Text.Trim();
+            var heightString = TextBoxImgHeight.Text.Trim();
+
+            var currentWidth = _imageCurrent.Width;
+            var currentHeight = _imageCurrent.Height;
+
+            if (!string.IsNullOrWhiteSpace(widthString)) return;
+
+            if (string.IsNullOrEmpty(heightString)) return;
+
+            int newHeight;
+
+            try
+            {
+                newHeight = int.Parse(TextBoxImgHeight.Text.Trim());
+            }
+            catch
+            {
+                return;
+            }
+
+            TextBoxImgWidth.Text = CalcNewWidthByNewHeight(
+                currentWidth,
+                currentHeight,
+                newHeight
+            ).ToString();
+        }
+
+        private void TextBoxImgHeight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_imageCurrent == null)
+            {
+                return;
+            }
+
+            var widthString = TextBoxImgWidth.Text.Trim();
+            var heightString = TextBoxImgHeight.Text.Trim();
+
+            var currentWidth = _imageCurrent.Width;
+            var currentHeight = _imageCurrent.Height;
+
+            if (!string.IsNullOrWhiteSpace(heightString)) return;
+
+            if (string.IsNullOrEmpty(widthString)) return;
+
+            int newWidth;
+
+            try
+            {
+                newWidth = int.Parse(TextBoxImgWidth.Text.Trim());
+            }
+            catch
+            {
+                return;
+            }
+
+            TextBoxImgHeight.Text = CalcNewHeightByNewWidth(
+                currentWidth,
+                currentHeight,
+                newWidth
+            ).ToString();
         }
     }
 }

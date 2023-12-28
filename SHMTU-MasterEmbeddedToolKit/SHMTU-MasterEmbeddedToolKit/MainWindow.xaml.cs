@@ -166,5 +166,6 @@ namespace SHMTU_MasterEmbeddedToolKit
         {
             return $"/* The file was created in {GetFormatTimeString()} */";
         }
+
     }
 }
