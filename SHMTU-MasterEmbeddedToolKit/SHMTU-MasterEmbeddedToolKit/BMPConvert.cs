@@ -10,6 +10,7 @@ using Com.FirstSolver.Splash;
 using EmbeddedCourseLib;
 using Microsoft.Win32;
 using static EmbeddedChineseCharacter.EmbeddedChineseCharacter;
+using MessageBox = HandyControl.Controls.MessageBox;
 
 namespace SHMTU_MasterEmbeddedToolKit
 {
@@ -84,7 +85,7 @@ namespace SHMTU_MasterEmbeddedToolKit
                 return;
             }
 
-            if (!FileNameUtil.JudgeIsImage(filePath))
+            if (!FileNameUtils.JudgeIsImage(filePath))
             {
                 LabelBmpStatus.Content = "File Is Not Image";
                 LabelBmpStatus.Style = (Style)FindResource("LabelDanger");
@@ -190,7 +191,17 @@ namespace SHMTU_MasterEmbeddedToolKit
 
             File.WriteAllText(savePath, code);
 
-            MessageBox.Show("Convert BMP to C Array successfully!", "Message");
+            if (
+                MessageBox.Show(
+                    "Convert BMP to C Array successfully!",
+                    "Message",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question
+                ) == MessageBoxResult.Yes
+            )
+            {
+                OpenExplorerAndSelectFile(savePath);
+            }
         }
 
         private void BtnSelectSaveBMPCPath_Click(object sender, RoutedEventArgs e)
@@ -332,7 +343,7 @@ namespace SHMTU_MasterEmbeddedToolKit
             // 判断剪贴板中是否包含图像数据
             if (dataObject?.GetDataPresent(DataFormats.Bitmap) == true)
             {
-                BitmapSource clipboardImage = Clipboard.GetImage();
+                var clipboardImage = Clipboard.GetImage();
 
                 // 判断图像数据是否为有效图像
                 if (clipboardImage == null) return;
@@ -363,7 +374,7 @@ namespace SHMTU_MasterEmbeddedToolKit
             {
                 var filePath = files[0];
                 var fileName = Path.GetFileName(filePath);
-                if (FileNameUtil.JudgeIsImage(fileName))
+                if (FileNameUtils.JudgeIsImage(fileName))
                 {
                     TextBoxBmpPath.Text = filePath;
                 }

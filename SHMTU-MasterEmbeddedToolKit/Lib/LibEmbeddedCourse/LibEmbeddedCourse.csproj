@@ -43,8 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bmp24.cs" />
-    <Compile Include="FileNameUtil.cs" />
-    <Compile Include="FontUtil.cs" />
+    <Compile Include="FileNameUtils.cs" />
+    <Compile Include="FontUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

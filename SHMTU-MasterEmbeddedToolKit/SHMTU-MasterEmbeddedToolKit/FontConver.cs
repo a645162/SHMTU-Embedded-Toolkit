@@ -1,9 +1,12 @@
-﻿using System;
+﻿// Ignore Spelling: SHMTU
+
+using System;
 using System.IO;
 using System.Windows;
 using EmbeddedCourseLib;
 using Microsoft.Win32;
 using static EmbeddedChineseCharacter.EmbeddedChineseCharacter;
+using MessageBox = HandyControl.Controls.MessageBox;
 
 namespace SHMTU_MasterEmbeddedToolKit
 {
@@ -124,9 +127,9 @@ namespace SHMTU_MasterEmbeddedToolKit
 
             // Do convert
             var cArray =
-                FontUtil.GetChineseCharacterFontFromString(
+                FontUtils.GetChineseCharacterFontFromString(
                     originText,
-                    FontUtil.GetFontObjectFromName(fontName),
+                    FontUtils.GetFontObjectFromName(fontName),
                     ttfConstantName
                 );
 
@@ -143,11 +146,17 @@ namespace SHMTU_MasterEmbeddedToolKit
             // Save to file
             File.WriteAllText(savePath, cArray);
 
-            MessageBox.Show(
-                "Convert TTF to C Array successfully!",
-                "Message", MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
+            if (
+                MessageBox.Show(
+                    "Convert TTF to C Array successfully!\n" +
+                    "Do you need to navigate to the file?",
+                    "Message", MessageBoxButton.YesNo,
+                    MessageBoxImage.Question
+                ) == MessageBoxResult.Yes
+            )
+            {
+                OpenExplorerAndSelectFile(savePath);
+            }
         }
 
         private void ButtonGenerateTextConstantName_Click(object sender, RoutedEventArgs e)

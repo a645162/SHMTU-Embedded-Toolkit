@@ -1,9 +1,15 @@
-﻿using System.Windows;
+﻿// Ignore Spelling: SHMTU
+
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using HandyControl.Controls;
 using HandyControl.Themes;
 using HandyControl.Tools;
 using WindowsSystemTheme;
+using MessageBox = HandyControl.Controls.MessageBox;
 
 namespace SHMTU_MasterEmbeddedToolKit
 {
@@ -78,7 +84,7 @@ namespace SHMTU_MasterEmbeddedToolKit
         // Open URL on Default Web Browser
         private static void OpenUrl(string url)
         {
-            System.Diagnostics.Process.Start(url);
+            Process.Start(url);
         }
 
         private void MenuItemGithubRepo_Click(object sender, RoutedEventArgs e)
@@ -94,6 +100,32 @@ namespace SHMTU_MasterEmbeddedToolKit
         private void ButtonGithubRepo_Click(object sender, RoutedEventArgs e)
         {
             OpenUrl(@"https://github.com/a645162/SHMTU-Embedded-Toolkit");
+        }
+
+        private void OpenExplorerAndSelectFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show(
+                    $"File is not exist：{filePath}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error
+                );
+                return;
+            }
+
+            try
+            {
+                var argument = $"/select, \"{filePath}\"";
+
+                Process.Start("explorer.exe", argument);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Cannot open Windows Explorer：{ex.Message}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error
+                );
+            }
         }
     }
 }
