@@ -126,7 +126,7 @@ namespace SHMTU_MasterEmbeddedToolKit
             }
 
             // Do convert
-            var cArray =
+            var code =
                 FontUtils.GetChineseCharacterFontFromString(
                     originText,
                     FontUtils.GetFontObjectFromName(fontName),
@@ -143,8 +143,10 @@ namespace SHMTU_MasterEmbeddedToolKit
                 savePath += ".h";
             }
 
+            code = GetGenerateTimeString() + "\n" + code;
+
             // Save to file
-            File.WriteAllText(savePath, cArray);
+            File.WriteAllText(savePath, code);
 
             var messageBoxResult = MessageBox.Show(
                 "Convert Text Raw Data to C Array successfully!\n" +

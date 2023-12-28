@@ -187,6 +187,7 @@ namespace SHMTU_MasterEmbeddedToolKit
                     $"PIC_{bmpConstantName}_RGB_ARRAY",
                     _imageSource == 1 ? _imgSourceFilePath : ""
                 );
+            code = GetGenerateTimeString() + "\n" + code;
 
             if (
                 !(

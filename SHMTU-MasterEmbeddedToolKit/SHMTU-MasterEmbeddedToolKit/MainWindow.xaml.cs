@@ -152,5 +152,19 @@ namespace SHMTU_MasterEmbeddedToolKit
                 );
             }
         }
+
+        private static string GetFormatTimeString()
+        {
+            var currentTime = DateTime.Now;
+
+            var formattedTime = currentTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+            return formattedTime;
+        }
+
+        private static string GetGenerateTimeString()
+        {
+            return $"/* The file was created in {GetFormatTimeString()} */";
+        }
     }
 }
