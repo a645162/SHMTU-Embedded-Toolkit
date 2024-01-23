@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using HandyControl.Controls;
@@ -167,5 +168,15 @@ namespace SHMTU_MasterEmbeddedToolKit
             return $"/* The file was created in {GetFormatTimeString()} */";
         }
 
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+            // 获取当前程序集
+            var assembly = Assembly.GetExecutingAssembly();
+
+            // 获取程序集的版本信息
+            var version = assembly.GetName().Version.ToString();
+
+            WindowMain.Title += " " + version;
+        }
     }
 }
