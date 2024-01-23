@@ -6,16 +6,18 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+    x:Name="WindowMain"
     Title="SHMTU Embedded Toolkit"
     Width="800"
     Height="600"
     MinWidth="800"
     MinHeight="600"
+    AllowDrop="True"
+    DragEnter="MainWindow_OnDragEnter"
+    Drop="MainWindow_OnDrop"
+    Initialized="Window_Initialized"
     ShowTitle="True"
     WindowStartupLocation="CenterScreen"
-    AllowDrop="True"
-    Drop="MainWindow_OnDrop"
-    DragEnter="MainWindow_OnDragEnter"
     mc:Ignorable="d">
     <hc:Window.NonClientAreaContent>
         <Grid>
@@ -26,13 +28,20 @@
             <StackPanel Height="29">
                 <Menu HorizontalAlignment="Left">
                     <MenuItem Header="Program">
-                        <MenuItem x:Name="MenuItemExit" Header="Exit" Click="MenuItemExit_Click" />
+                        <MenuItem
+                            x:Name="MenuItemExit"
+                            Click="MenuItemExit_Click"
+                            Header="Exit" />
                     </MenuItem>
                     <MenuItem Header="About">
-                        <MenuItem x:Name="MenuItemGithubRepo" Header="GitHub Repository"
-                                  Click="MenuItemGithubRepo_Click" />
-                        <MenuItem x:Name="MenuItemGithubHome" Header="Author GitHub Homepage"
-                                  Click="MenuItemGithubHome_Click" />
+                        <MenuItem
+                            x:Name="MenuItemGithubRepo"
+                            Click="MenuItemGithubRepo_Click"
+                            Header="GitHub Repository" />
+                        <MenuItem
+                            x:Name="MenuItemGithubHome"
+                            Click="MenuItemGithubHome_Click"
+                            Header="Author GitHub Homepage" />
                     </MenuItem>
                 </Menu>
             </StackPanel>
@@ -176,41 +185,43 @@
                         <StackPanel Orientation="Vertical">
                             <Label
                                 Height="Auto"
+                                Margin="5,5,5,5"
                                 HorizontalAlignment="Center"
                                 Content="SHMTU Embedded Toolkit"
                                 FontSize="24"
-                                Margin="5,5,5,5"
                                 Style="{DynamicResource LabelPrimary}" />
                             <Label
                                 Height="Auto"
+                                Margin="5,5,5,5"
                                 HorizontalAlignment="Center"
                                 Content="Author:Haomin Kong"
-                                Margin="5,5,5,5"
                                 FontSize="24"
                                 Style="{DynamicResource LabelInfo}" />
                             <Label
                                 Height="Auto"
+                                Margin="5,5,5,5"
                                 HorizontalAlignment="Center"
                                 Content="上海海事大学研究生"
-                                Margin="5,5,5,5"
                                 FontSize="24" />
                             <Label
                                 Height="Auto"
+                                Margin="5,5,5,5"
                                 HorizontalAlignment="Center"
                                 Content="嵌入式课程小工具"
-                                Margin="5,5,5,5"
                                 FontSize="24"
                                 Style="{DynamicResource LabelWarning}" />
                             <Label
                                 Height="Auto"
+                                Margin="5,5,5,5"
                                 HorizontalAlignment="Center"
                                 Content="作者：孔昊旻"
-                                Margin="5,5,5,5"
                                 FontSize="24"
                                 Style="{DynamicResource LabelDanger}" />
 
-                            <Button Margin="5,5,5,5" Content="https://github.com/a645162/SHMTU-Embedded-Toolkit"
-                                    Click="ButtonGithubRepo_Click" />
+                            <Button
+                                Margin="5,5,5,5"
+                                Click="ButtonGithubRepo_Click"
+                                Content="https://github.com/a645162/SHMTU-Embedded-Toolkit" />
 
                         </StackPanel>
                     </Grid>
@@ -231,7 +242,10 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="Picture File Path(*.jpg/*.jpeg/*.bmp/*.png,Support Drag):" />
-                            <Button Margin="10,0,10,0" Content="Read from Clipboard" Click="BtnReadClipboard_Click" />
+                            <Button
+                                Margin="10,0,10,0"
+                                Click="BtnReadClipboard_Click"
+                                Content="Read from Clipboard" />
                         </WrapPanel>
                         <WrapPanel>
                             <TextBox
@@ -295,7 +309,9 @@
                                 VerticalAlignment="Center"
                                 PreviewTextInput="TextBoxImgWidth_PreviewTextInput"
                                 Text="100"
-                                TextWrapping="NoWrap" TextAlignment="Center" TextChanged="TextBoxImgWidth_TextChanged" />
+                                TextAlignment="Center"
+                                TextChanged="TextBoxImgWidth_TextChanged"
+                                TextWrapping="NoWrap" />
                             <Label
                                 Margin="10,5,0,5"
                                 HorizontalAlignment="Left"
@@ -309,7 +325,9 @@
                                 VerticalAlignment="Center"
                                 PreviewTextInput="TextBoxImgHeight_PreviewTextInput"
                                 Text="100"
-                                TextWrapping="NoWrap" TextAlignment="Center" TextChanged="TextBoxImgHeight_TextChanged" />
+                                TextAlignment="Center"
+                                TextChanged="TextBoxImgHeight_TextChanged"
+                                TextWrapping="NoWrap" />
                             <Button
                                 x:Name="BtnResize"
                                 HorizontalAlignment="Right"
@@ -342,8 +360,8 @@
                             <Button
                                 x:Name="ButtonGeneratePicConstantName"
                                 Margin="10,5,10,0"
-                                Content="Generate Constant Name by Save Filename"
-                                Click="ButtonGeneratePicConstantName_Click" />
+                                Click="ButtonGeneratePicConstantName_Click"
+                                Content="Generate Constant Name by Save Filename" />
                         </WrapPanel>
                         <Label
                             Margin="10,5,10,0"
@@ -352,7 +370,7 @@
                         <WrapPanel>
                             <TextBox
                                 x:Name="TextBoxBmpHeaderPath"
-                                Width="600"
+                                Width="580"
                                 Height="Auto"
                                 Margin="10,5,10,5"
                                 VerticalAlignment="Center"
@@ -426,8 +444,8 @@
                             <Button
                                 x:Name="ButtonGenerateTextConstantName"
                                 Margin="10,5,10,0"
-                                Content="Generate Constant Name by Save Filename"
-                                Click="ButtonGenerateTextConstantName_Click" />
+                                Click="ButtonGenerateTextConstantName_Click"
+                                Content="Generate Constant Name by Save Filename" />
                         </WrapPanel>
                         <Label
                             Margin="10,5,10,0"
@@ -437,7 +455,7 @@
                             <TextBox
                                 x:Name="TextBoxSaveTTFCPath"
                                 Height="Auto"
-                                MinWidth="600"
+                                MinWidth="580"
                                 Margin="10,5,10,5"
                                 VerticalAlignment="Center"
                                 Text=""
